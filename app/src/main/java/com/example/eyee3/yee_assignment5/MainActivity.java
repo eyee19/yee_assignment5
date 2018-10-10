@@ -1,5 +1,6 @@
 package com.example.eyee3.yee_assignment5;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -58,11 +59,28 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_add:
+                Intent newMovie = new Intent(MainActivity.this, addMovie.class);
+                startActivityForResult(newMovie, 1);
                 return true;
 
             default:
                 return super.onOptionsItemSelected(item);
 
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>
+                (MainActivity.this, android.R.layout.simple_list_item_1, MoviesList);
+        movieList.setAdapter(adapter);
+
+        if(requestCode == 1) {
+            if(resultCode == Activity.RESULT_OK) {
+
+            }
         }
     }
 }

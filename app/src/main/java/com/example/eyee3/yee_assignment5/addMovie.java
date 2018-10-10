@@ -1,5 +1,7 @@
 package com.example.eyee3.yee_assignment5;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
@@ -48,12 +50,15 @@ public class addMovie extends AppCompatActivity {
         myToolbar.setTitle("New Movie");
         setSupportActionBar(myToolbar);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorPrimary)));
-        ActionBar ab = getSupportActionBar();
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent backHome = new Intent();
 
+
+                setResult(Activity.RESULT_OK, backHome);
+                finish();
             }
         });
 
