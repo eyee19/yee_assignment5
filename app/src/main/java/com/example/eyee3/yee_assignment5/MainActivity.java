@@ -4,11 +4,13 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v7.widget.Toolbar;
@@ -32,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
     ListView movieList;
     String[] ListElements = new String[] {};
     final ArrayList<String> MoviesList = new ArrayList<String>(Arrays.asList(ListElements));
+    DatabaseHelper mDatabaseHelper;
+    private static final String TAG = "MainActivity";
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -42,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         movieLabel = (TextView) findViewById(R.id.movieLabel);
         movieList = (ListView) findViewById(R.id.moviesList);
+        mDatabaseHelper = new DatabaseHelper(this);
 
         myToolbar.setTitle("Movie Tracker");
         setSupportActionBar(myToolbar);
@@ -79,6 +84,13 @@ public class MainActivity extends AppCompatActivity {
 
         if(requestCode == 1) {
             if(resultCode == Activity.RESULT_OK) {
+                Log.d(TAG, "Displaying data in Listview");
+                Cursor info = mDatabaseHelper.getData();
+                while (info.moveToNext()) {
+                    MoviesList.add(info.getString(1));
+                    MoviesList.add(info.getString(2));
+                    MoviesList.add(info.getString(3));
+                }
 
             }
         }
