@@ -18,6 +18,7 @@
         </activity>
         <activity android:name=".addMovie" />
         <activity android:name=".viewMovie"></activity>
+        <service android:name=".service"></service>
     </application>
 
 </manifest>

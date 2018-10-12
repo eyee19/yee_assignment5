@@ -88,10 +88,10 @@ public class addMovie extends AppCompatActivity {
         boolean insertData = mDatabaseHelper.addData(newEntry, newEntry3, newEntry4);
 
         if (insertData) {
-            Toast.makeText(addMovie.this, "Data Successfully Inserted", Toast.LENGTH_SHORT).show();
+            Toast.makeText(addMovie.this, "Movie Successfully Added", Toast.LENGTH_SHORT).show();
         }
         else {
-            Toast.makeText(addMovie.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+            Toast.makeText(addMovie.this, "Oh no! Something went wrong", Toast.LENGTH_SHORT).show();
         }
     }
 }
