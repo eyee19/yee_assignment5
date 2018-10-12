@@ -52,11 +52,6 @@ public class MainActivity extends AppCompatActivity {
             MyLocalBinder binder = (com.example.eyee3.yee_assignment5.service.MyLocalBinder) service;
             MovieService = binder.getService();
             isBound = true;
-            //Toast.makeText(MainActivity.this, "Service Started", Toast.LENGTH_SHORT).show();
-
-            //String[] stockPrice = MovieService.getStock();
-
-            //code to do stuff
         }
 
         @Override
@@ -101,11 +96,8 @@ public class MainActivity extends AppCompatActivity {
                 i.putExtra("file", separated[2]);
                 bindService(i, movieConnection, Context.BIND_AUTO_CREATE);
                 startService(i);
-
-                //startActivityForResult(i, 2);*/
             }
         });
-
     }
 
     @Override
@@ -121,18 +113,14 @@ public class MainActivity extends AppCompatActivity {
                 Intent newMovie = new Intent(MainActivity.this, addMovie.class);
                 startActivityForResult(newMovie, 1);
                 return true;
-
             default:
                 return super.onOptionsItemSelected(item);
-
         }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-
 
         if(requestCode == 1) {
             if(resultCode == Activity.RESULT_OK) {

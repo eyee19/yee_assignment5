@@ -53,7 +53,7 @@ public class addMovie extends AppCompatActivity {
             }
         });
 
-        myToolbar.setTitle("New Movie");
+        myToolbar.setTitle("Add Movie");
         setSupportActionBar(myToolbar);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorPrimary)));
 
@@ -71,7 +71,7 @@ public class addMovie extends AppCompatActivity {
                     finish();
                 }
                 else {
-                    Toast.makeText(addMovie.this, "You must put something in the text fields!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(addMovie.this, "Name/Year/Filename cannot be empty", Toast.LENGTH_SHORT).show();
                 }
             }
         });

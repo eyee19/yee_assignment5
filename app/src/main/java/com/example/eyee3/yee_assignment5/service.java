@@ -17,7 +17,6 @@ public class service extends Service {
     private  final IBinder serviceBinder = new MyLocalBinder();
 
     public service() {
-
     }
 
     @Override
@@ -34,8 +33,6 @@ public class service extends Service {
     @Override
     public void onCreate() {
         mNM = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
-        //showNotification();
-        //onStartCommand();
     }
 
     @Override
@@ -43,12 +40,9 @@ public class service extends Service {
         String name = intent.getStringExtra("name");
         String year = intent.getStringExtra("year");
         String file = intent.getStringExtra("file");
-        Log.d(TAG, "SERVICE TEST: " + name);
-        Log.d(TAG, "SERVICE TEST: " + year);
-        Log.d(TAG, "SERVICE TEST: " + file);
 
         CharSequence text = "Click to view details";
-        CharSequence title = "\"" + name + "\"" + " is now playing";
+        CharSequence title = name + " (" + year + ")" + " is now playing";
 
         NotificationManager mNotificationManager =
                 (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
@@ -57,31 +51,16 @@ public class service extends Service {
                 .setSmallIcon(R.drawable.ic_play_arrow_black_24dp) // notification icon
                 .setContentTitle(title) // title for notification
                 .setContentText(text)// message for notification
-                .setAutoCancel(true); // clear notification after click
+                .setAutoCancel(false); // clear notification after click
 
-        Intent intent2 = new Intent(service.this, MainActivity.class);
+        Intent intent2 = new Intent(service.this, viewMovie.class);
         PendingIntent pi = PendingIntent.getActivity(service.this, 0, intent2, PendingIntent.FLAG_UPDATE_CURRENT);
         mBuilder.setContentIntent(pi);
         mNotificationManager.notify(0, mBuilder.build());
+
         return START_STICKY;
     }
 
     /*private void showNotification() {
-        CharSequence text = "Click to view details";
-        //CharSequence title = + " is now playing";
-
-        NotificationManager mNotificationManager =
-                (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(service.this, "Chapman")
-                .setSmallIcon(R.drawable.ic_play_arrow_black_24dp) // notification icon
-                .setContentTitle("Service") // title for notification
-                .setContentText(text)// message for notification
-                .setAutoCancel(true); // clear notification after click
-
-        Intent intent = new Intent(service.this, MainActivity.class);
-        PendingIntent pi = PendingIntent.getActivity(service.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        mBuilder.setContentIntent(pi);
-        mNotificationManager.notify(0, mBuilder.build());
     }*/
 }
