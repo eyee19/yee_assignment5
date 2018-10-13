@@ -2,6 +2,7 @@ package com.example.eyee3.yee_assignment5;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.NotificationManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -88,7 +89,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent i = new Intent(MainActivity.this, service.class);
-
                 String currentString = movieList.getItemAtPosition(position).toString();
                 String [] separated = currentString.split(Pattern.quote("\n"));
                 i.putExtra("name", separated[0]);
@@ -96,6 +96,38 @@ public class MainActivity extends AppCompatActivity {
                 i.putExtra("file", separated[2]);
                 bindService(i, movieConnection, Context.BIND_AUTO_CREATE);
                 startService(i);
+            }
+        });
+
+        movieList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> av, View v, int pos, final long id) {
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                        MainActivity.this);
+
+                alertDialogBuilder
+                        .setMessage("Delete Movie?") //Verifies first
+                        .setCancelable(false)
+                        .setPositiveButton("Yes",new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                mDatabaseHelper.remove(id);
+                                /*final ArrayAdapter<String> testAdapter = new ArrayAdapter<String>
+                                        (MainActivity.this, android.R.layout.simple_list_item_1, RestaurantsList);
+                                restList.setAdapter(testAdapter);
+                                testAdapter.clear();
+                                testAdapter.notifyDataSetChanged();*/
+                                //finish();
+                            }
+                        })
+                        .setNegativeButton("No",new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+                return true;
             }
         });
     }

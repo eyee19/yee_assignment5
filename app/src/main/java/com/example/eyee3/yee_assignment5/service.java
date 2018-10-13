@@ -35,8 +35,13 @@ public class service extends Service {
         mNM = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
     }
 
+    private static final String TAGN = "serviceNotification";
+    private static final int NOTIFICATION_ID = 101;
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        Log.d(TAG, "SERVICE HAS STARTED");
+
         String name = intent.getStringExtra("name");
         String year = intent.getStringExtra("year");
         String file = intent.getStringExtra("file");
@@ -54,9 +59,12 @@ public class service extends Service {
                 .setAutoCancel(false); // clear notification after click
 
         Intent intent2 = new Intent(service.this, viewMovie.class);
+        intent2.putExtra("viewName", name);
+        intent2.putExtra("viewYear", year);
+        intent2.putExtra("viewFile", file);
         PendingIntent pi = PendingIntent.getActivity(service.this, 0, intent2, PendingIntent.FLAG_UPDATE_CURRENT);
         mBuilder.setContentIntent(pi);
-        mNotificationManager.notify(0, mBuilder.build());
+        mNotificationManager.notify(TAGN, NOTIFICATION_ID, mBuilder.build());
 
         return START_STICKY;
     }

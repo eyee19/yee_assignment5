@@ -61,4 +61,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor data = db.rawQuery(query, null);
         return data;
     }
+
+    public void remove(long id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        //String string = String.valueOf(id);
+        db.execSQL("DELETE FROM movieTable WHERE'" + COL1 + "= id'");
+        Log.d(TAG, "THE ID: " + id);
+        Log.d(TAG, "THE COLUMN ID: " + COL1);
+    }
 }
