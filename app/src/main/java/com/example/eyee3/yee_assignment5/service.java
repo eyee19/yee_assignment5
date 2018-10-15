@@ -8,6 +8,8 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+import android.widget.Toast;
+import android.widget.Toolbar;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
 
@@ -67,6 +69,11 @@ public class service extends Service {
         mNotificationManager.notify(TAGN, NOTIFICATION_ID, mBuilder.build());
 
         return START_STICKY;
+    }
+
+    @Override
+    public void onDestroy() {
+        Toast.makeText(service.this, "Service Stopped", Toast.LENGTH_SHORT).show();
     }
 
     /*private void showNotification() {

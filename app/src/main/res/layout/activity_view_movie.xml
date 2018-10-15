@@ -97,5 +97,19 @@
         android:id="@+id/stopPlaying"
         android:text="Stop Playing"/>
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/stopPlaying"
+        android:id="@+id/delete"
+        android:text="Delete Movie"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/delete"
+        android:id="@+id/back"
+        android:text="Back"/>
+
 
 </RelativeLayout>

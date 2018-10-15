@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.database.Cursor;
+import android.graphics.Movie;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.IBinder;
@@ -42,8 +43,9 @@ public class MainActivity extends AppCompatActivity {
     ListView movieList;
     service MovieService;
     boolean isBound = false;
-    String[] ListElements = new String[] {};
-    final ArrayList<String> MoviesList = new ArrayList<String>(Arrays.asList(ListElements));
+    //String[] ListElements = new String[] {};
+    //final ArrayList<String> MoviesList = new ArrayList<String>(Arrays.asList(ListElements));
+    ArrayList<String> listData = new ArrayList<>();
     DatabaseHelper mDatabaseHelper;
     private static final String TAG = "MainActivity";
 
@@ -99,9 +101,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        movieList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        /*movieList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> av, View v, int pos, final long id) {
+
+                final long itemID = movieList.getItemIdAtPosition(pos);
+                final int positionRemove = pos;
+                Log.d(TAG, "THIS IS THE INDEX: " + positionRemove);
+                *//*final ArrayAdapter<String> testAdapter = new ArrayAdapter<String>
+                        (MainActivity.this, android.R.layout.simple_list_item_1, MoviesList);
+                movieList.setAdapter(testAdapter);*//*
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                         MainActivity.this);
 
@@ -110,12 +119,10 @@ public class MainActivity extends AppCompatActivity {
                         .setCancelable(false)
                         .setPositiveButton("Yes",new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,int id) {
-                                mDatabaseHelper.remove(id);
-                                /*final ArrayAdapter<String> testAdapter = new ArrayAdapter<String>
-                                        (MainActivity.this, android.R.layout.simple_list_item_1, RestaurantsList);
-                                restList.setAdapter(testAdapter);
-                                testAdapter.clear();
-                                testAdapter.notifyDataSetChanged();*/
+                                mDatabaseHelper.remove(itemID);
+                                listData.remove(positionRemove);
+
+                                //testAdapter.notifyDataSetChanged();
                                 //finish();
                             }
                         })
@@ -129,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
                 alertDialog.show();
                 return true;
             }
-        });
+        });*/
     }
 
     @Override
@@ -158,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
             if(resultCode == Activity.RESULT_OK) {
                 Log.d(TAG, "Displaying data in Listview");
                 Cursor info = mDatabaseHelper.getData();
-                ArrayList<String> listData = new ArrayList<>();
+                //ArrayList<String> listData = new ArrayList<>();
 
                 while (info.moveToNext()) {
                     String nameReturn = info.getString(1);

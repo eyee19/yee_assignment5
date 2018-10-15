@@ -65,7 +65,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void remove(long id){
         SQLiteDatabase db = this.getWritableDatabase();
         //String string = String.valueOf(id);
-        db.execSQL("DELETE FROM movieTable WHERE'" + COL1 + "= id'");
+        db.delete(TABLE_NAME,COL1+ "=" +id,null);
         Log.d(TAG, "THE ID: " + id);
         Log.d(TAG, "THE COLUMN ID: " + COL1);
     }
