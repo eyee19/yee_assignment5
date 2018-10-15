@@ -1,5 +1,5 @@
 package com.example.eyee3.yee_assignment5;
-
+// https://stackoverflow.com/questions/19555366/add-new-item-in-listview-dynamically
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.NotificationManager;
@@ -48,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> listData = new ArrayList<>();
     DatabaseHelper mDatabaseHelper;
     private static final String TAG = "MainActivity";
+    //final ArrayAdapter<String> adapter = new ArrayAdapter<String>
+      //      (MainActivity.this, android.R.layout.simple_list_item_1, listData);
 
     private ServiceConnection movieConnection = new ServiceConnection() {
         @Override
@@ -77,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Log.d(TAG, "CREATED");
 
         myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         movieLabel = (TextView) findViewById(R.id.movieLabel);
@@ -86,6 +89,22 @@ public class MainActivity extends AppCompatActivity {
         myToolbar.setTitle("Movie Tracker");
         setSupportActionBar(myToolbar);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorPrimary)));
+
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>
+                (MainActivity.this, android.R.layout.simple_list_item_1, listData);
+        movieList.setAdapter(adapter);
+
+        listData.clear();
+        Cursor load = mDatabaseHelper.getData();
+        while (load.moveToNext()) {
+            String nameSet = load.getString(1);
+            String yearSet = load.getString(2);
+            String fileSet = load.getString(3);
+
+            listData.add(nameSet + "\n" + yearSet + "\n" + fileSet);
+            adapter.notifyDataSetChanged();
+        }
+
 
         movieList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -140,6 +159,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        Log.d(TAG, "RESUMED");
+        ArrayAdapter<String> adapter = (ArrayAdapter<String>) movieList.getAdapter();
+        listData.clear();
+
+        Cursor load = mDatabaseHelper.getData();
+        while (load.moveToNext()) {
+            String nameSet = load.getString(1);
+            String yearSet = load.getString(2);
+            String fileSet = load.getString(3);
+
+            listData.add(nameSet + "\n" + yearSet + "\n" + fileSet);
+            adapter.notifyDataSetChanged();
+        }
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
@@ -166,18 +203,18 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "Displaying data in Listview");
                 Cursor info = mDatabaseHelper.getData();
                 //ArrayList<String> listData = new ArrayList<>();
-
+                ArrayAdapter<String> adapter = (ArrayAdapter<String>) movieList.getAdapter();
                 while (info.moveToNext()) {
                     String nameReturn = info.getString(1);
                     String yearReturn = info.getString(2);
                     String fileReturn = info.getString(3);
 
                     listData.add(nameReturn + "\n" + yearReturn + "\n" + fileReturn);
-                    //MoviesList.add(nameReturn + "\n" + yearReturn + "\n" + fileReturn);
                 }
-                final ArrayAdapter<String> adapter = new ArrayAdapter<String>
-                        (MainActivity.this, android.R.layout.simple_list_item_1, listData);
-                movieList.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+                //final ArrayAdapter<String> adapter = new ArrayAdapter<String>
+                  //      (MainActivity.this, android.R.layout.simple_list_item_1, listData);
+                //movieList.setAdapter(adapter);
             }
         }
     }
