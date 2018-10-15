@@ -69,6 +69,7 @@ public class viewMovie extends AppCompatActivity {
                         Log.d(TAG, "SERVICE HAS STOPPED");
                     }
                 }
+
                 NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
                 notificationManager.cancel("serviceNotification",101);
                 finish();

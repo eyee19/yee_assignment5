@@ -43,13 +43,9 @@ public class MainActivity extends AppCompatActivity {
     ListView movieList;
     service MovieService;
     boolean isBound = false;
-    //String[] ListElements = new String[] {};
-    //final ArrayList<String> MoviesList = new ArrayList<String>(Arrays.asList(ListElements));
     ArrayList<String> listData = new ArrayList<>();
     DatabaseHelper mDatabaseHelper;
     private static final String TAG = "MainActivity";
-    //final ArrayAdapter<String> adapter = new ArrayAdapter<String>
-      //      (MainActivity.this, android.R.layout.simple_list_item_1, listData);
 
     private ServiceConnection movieConnection = new ServiceConnection() {
         @Override
@@ -86,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
         movieList = (ListView) findViewById(R.id.moviesList);
         mDatabaseHelper = new DatabaseHelper(this);
 
-        myToolbar.setTitle("Movie Tracker");
+        myToolbar.setTitle("My Movies");
         setSupportActionBar(myToolbar);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorPrimary)));
 
@@ -200,9 +196,8 @@ public class MainActivity extends AppCompatActivity {
 
         if(requestCode == 1) {
             if(resultCode == Activity.RESULT_OK) {
-                Log.d(TAG, "Displaying data in Listview");
+                Log.d(TAG, "Adding movie to listview");
                 Cursor info = mDatabaseHelper.getData();
-                //ArrayList<String> listData = new ArrayList<>();
                 ArrayAdapter<String> adapter = (ArrayAdapter<String>) movieList.getAdapter();
                 while (info.moveToNext()) {
                     String nameReturn = info.getString(1);
@@ -212,9 +207,6 @@ public class MainActivity extends AppCompatActivity {
                     listData.add(nameReturn + "\n" + yearReturn + "\n" + fileReturn);
                 }
                 adapter.notifyDataSetChanged();
-                //final ArrayAdapter<String> adapter = new ArrayAdapter<String>
-                  //      (MainActivity.this, android.R.layout.simple_list_item_1, listData);
-                //movieList.setAdapter(adapter);
             }
         }
     }

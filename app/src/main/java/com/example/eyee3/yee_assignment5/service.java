@@ -55,10 +55,10 @@ public class service extends Service {
                 (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(service.this, "Chapman")
-                .setSmallIcon(R.drawable.ic_play_arrow_black_24dp) // notification icon
-                .setContentTitle(title) // title for notification
-                .setContentText(text)// message for notification
-                .setAutoCancel(false); // clear notification after click
+                .setSmallIcon(R.drawable.ic_play_arrow_black_24dp)
+                .setContentTitle(title)
+                .setContentText(text)
+                .setAutoCancel(false);
 
         Intent intent2 = new Intent(service.this, viewMovie.class);
         intent2.putExtra("viewName", name);
@@ -75,7 +75,4 @@ public class service extends Service {
     public void onDestroy() {
         Toast.makeText(service.this, "Service Stopped", Toast.LENGTH_SHORT).show();
     }
-
-    /*private void showNotification() {
-    }*/
 }
