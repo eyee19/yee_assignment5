@@ -1,4 +1,6 @@
 package com.example.eyee3.yee_assignment5;
+// Resources:
+// Android documentation
 // https://stackoverflow.com/questions/19555366/add-new-item-in-listview-dynamically
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -52,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         public void onServiceConnected(ComponentName name, IBinder service) {
             MyLocalBinder binder = (com.example.eyee3.yee_assignment5.service.MyLocalBinder) service;
             MovieService = binder.getService();
-            isBound = true;
+            isBound = true; //starting the bound service
         }
 
         @Override
@@ -90,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
                 (MainActivity.this, android.R.layout.simple_list_item_1, listData);
         movieList.setAdapter(adapter);
 
-        listData.clear();
+        listData.clear(); //clearing listview before loading in from database to prevent duplicates
         Cursor load = mDatabaseHelper.getData();
         while (load.moveToNext()) {
             String nameSet = load.getString(1);
@@ -111,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
                 i.putExtra("name", separated[0]);
                 i.putExtra("year", separated[1]);
                 i.putExtra("file", separated[2]);
-                bindService(i, movieConnection, Context.BIND_AUTO_CREATE);
+                bindService(i, movieConnection, Context.BIND_AUTO_CREATE); //start service
                 startService(i);
             }
         });
@@ -132,8 +134,8 @@ public class MainActivity extends AppCompatActivity {
                         .setCancelable(false)
                         .setPositiveButton("Yes",new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,int id) {
-                                mDatabaseHelper.remove(itemID);
-                                listData.remove(positionRemove);
+                                mDatabaseHelper.remove(itemID); //deletes from database
+                                listData.remove(positionRemove); //deletes from listview
 
                                 adapter.notifyDataSetChanged();
                                 //finish();
@@ -157,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         Log.d(TAG, "RESUMED");
         ArrayAdapter<String> adapter = (ArrayAdapter<String>) movieList.getAdapter();
-        listData.clear();
+        listData.clear(); //when returning from the add movie screen, update listview with new movie
 
         Cursor load = mDatabaseHelper.getData();
         while (load.moveToNext()) {
@@ -181,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_add:
                 Intent newMovie = new Intent(MainActivity.this, addMovie.class);
-                startActivityForResult(newMovie, 1);
+                startActivityForResult(newMovie, 1); //go to add movie screen
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

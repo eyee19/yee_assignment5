@@ -46,7 +46,7 @@ public class service extends Service {
 
         String name = intent.getStringExtra("name");
         String year = intent.getStringExtra("year");
-        String file = intent.getStringExtra("file");
+        String file = intent.getStringExtra("file"); //when service starts gather all information and display in notification
 
         CharSequence text = "Click to view details";
         CharSequence title = name + " (" + year + ")" + " is now playing";
@@ -63,7 +63,7 @@ public class service extends Service {
         Intent intent2 = new Intent(service.this, viewMovie.class);
         intent2.putExtra("viewName", name);
         intent2.putExtra("viewYear", year);
-        intent2.putExtra("viewFile", file);
+        intent2.putExtra("viewFile", file); //sending information to view movie screen
         PendingIntent pi = PendingIntent.getActivity(service.this, 0, intent2, PendingIntent.FLAG_UPDATE_CURRENT);
         mBuilder.setContentIntent(pi);
         mNotificationManager.notify(TAGN, NOTIFICATION_ID, mBuilder.build());

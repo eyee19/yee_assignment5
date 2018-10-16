@@ -21,7 +21,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onCreate(SQLiteDatabase db) {
+    public void onCreate(SQLiteDatabase db) { //creating the database
         String createTable = "CREATE TABLE " + TABLE_NAME + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + COL2 + " TEXT NOT NULL, "
                 + COL3 + " TEXT NOT NULL, "
@@ -35,7 +35,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean addData(String item, String item3, String item4) {
+    public boolean addData(String item, String item3, String item4) { //adding to database
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL2, item);
@@ -54,17 +54,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public Cursor getData() {
+    public Cursor getData() { //retrieving data
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT * FROM " + TABLE_NAME;
         Cursor data = db.rawQuery(query, null);
         return data;
     }
 
-    public void remove(long id){
+    public void remove(long id){ //deleting data
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_NAME,COL1+ "=" +id,null);
         Log.d(TAG, "THE ID: " + id);
-        Log.d(TAG, "THE COLUMN ID: " + COL1);
+        Log.d(TAG, "MOVIE DELETED");
     }
 }

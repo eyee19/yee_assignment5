@@ -70,7 +70,7 @@ public class viewMovie extends AppCompatActivity {
                     }
                 }
                 NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-                notificationManager.cancel("serviceNotification",101);
+                notificationManager.cancel("serviceNotification",101); //removes notification
                 finish();
             }
         });

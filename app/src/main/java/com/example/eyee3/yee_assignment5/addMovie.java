@@ -64,7 +64,7 @@ public class addMovie extends AppCompatActivity {
                 String newEntry3 = year.getText().toString();
                 String newEntry4 = filename.getText().toString();
 
-                if (name.length() != 0 || year.length() != 0 || filename.length() != 0) {
+                if (name.length() != 0 || year.length() != 0 || filename.length() != 0) { //making sure entries are not empty
                     AddData(newEntry, newEntry3, newEntry4);
                     Intent intent = new Intent(addMovie.this, MainActivity.class);
                     setResult(Activity.RESULT_OK, intent);
@@ -84,7 +84,7 @@ public class addMovie extends AppCompatActivity {
         });
     }
 
-    public void AddData(String newEntry, String newEntry3, String newEntry4) {
+    public void AddData(String newEntry, String newEntry3, String newEntry4) { //verification
         boolean insertData = mDatabaseHelper.addData(newEntry, newEntry3, newEntry4);
 
         if (insertData) {
