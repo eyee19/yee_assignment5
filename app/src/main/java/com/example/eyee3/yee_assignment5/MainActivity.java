@@ -116,16 +116,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        /*movieList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        movieList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> av, View v, int pos, final long id) {
 
                 final long itemID = movieList.getItemIdAtPosition(pos);
                 final int positionRemove = pos;
                 Log.d(TAG, "THIS IS THE INDEX: " + positionRemove);
-                *//*final ArrayAdapter<String> testAdapter = new ArrayAdapter<String>
-                        (MainActivity.this, android.R.layout.simple_list_item_1, MoviesList);
-                movieList.setAdapter(testAdapter);*//*
+                final ArrayAdapter<String> adapter = (ArrayAdapter<String>) movieList.getAdapter();
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                         MainActivity.this);
 
@@ -137,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
                                 mDatabaseHelper.remove(itemID);
                                 listData.remove(positionRemove);
 
-                                //testAdapter.notifyDataSetChanged();
+                                adapter.notifyDataSetChanged();
                                 //finish();
                             }
                         })
@@ -151,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
                 alertDialog.show();
                 return true;
             }
-        });*/
+        });
     }
 
     @Override

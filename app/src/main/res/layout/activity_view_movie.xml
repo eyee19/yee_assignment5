@@ -100,16 +100,19 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/stopPlaying"
-        android:id="@+id/delete"
-        android:text="Delete Movie"/>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/delete"
+        android:layout_below="@+id/stopPlaying"
         android:id="@+id/back"
         android:text="Back"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/back"
+        android:id="@+id/tip"
+        android:layout_marginTop="50dp"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:text="Tip: long click a movie on the list view to delete it!"/>
 
 
 </RelativeLayout>

@@ -25,8 +25,8 @@ public class viewMovie extends AppCompatActivity {
     TextView year;
     TextView filename;
     Button stopPlaying;
-    Button delete;
     Button back;
+    TextView tip;
     private static final String TAG = "viewMovie";
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -39,8 +39,8 @@ public class viewMovie extends AppCompatActivity {
         year = (TextView) findViewById(R.id.yearAdd);
         filename = (TextView) findViewById(R.id.fileAdd);
         stopPlaying = (Button) findViewById(R.id.stopPlaying);
-        delete = (Button) findViewById(R.id.delete);
         back = (Button) findViewById(R.id.back);
+        tip = (TextView) findViewById(R.id.tip);
 
         myToolbar.setTitle("View Movie");
         setSupportActionBar(myToolbar);
@@ -69,17 +69,9 @@ public class viewMovie extends AppCompatActivity {
                         Log.d(TAG, "SERVICE HAS STOPPED");
                     }
                 }
-
                 NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
                 notificationManager.cancel("serviceNotification",101);
                 finish();
-            }
-        });
-
-        delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
             }
         });
 

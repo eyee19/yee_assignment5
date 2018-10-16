@@ -10,7 +10,6 @@ import android.util.Log;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String TAG = "DatabaseHelper";
-
     private static final String TABLE_NAME = "movieTable";
     private static final String COL1 = "ID";
     private static final String COL2 = "Name";
@@ -64,7 +63,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void remove(long id){
         SQLiteDatabase db = this.getWritableDatabase();
-        //String string = String.valueOf(id);
         db.delete(TABLE_NAME,COL1+ "=" +id,null);
         Log.d(TAG, "THE ID: " + id);
         Log.d(TAG, "THE COLUMN ID: " + COL1);
